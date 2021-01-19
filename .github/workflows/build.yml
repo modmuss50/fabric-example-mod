@@ -20,6 +20,13 @@ jobs:
         os: [ubuntu-20.04, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/
+            ./gradle/
+          key: ${{ runner.os }}-gradle-cache-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
       - name: checkout repository
         uses: actions/checkout@v2
       - name: validate gradle wrapper
